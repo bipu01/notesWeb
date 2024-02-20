@@ -8,6 +8,7 @@ import {
   updateHeaderIfChanged,
   updateParagraphIfChanged,
 } from "./updateHeadAndParagraphIfChanged.js";
+import { sendValueToUpdateSidebar } from "./sideBarOpenUpdate.js";
 
 export let mainBody = document.querySelector(".mainBody");
 // export let nodesNumberHolder = document.querySelector(".dataHolder");
@@ -16,8 +17,8 @@ let backBtn = document.querySelector(".backBtn");
 let dottedGrid = document.querySelector(".dottedGrid");
 let notes = document.querySelectorAll(".notes");
 let sidebar = document.querySelector(".sidebar");
-let previewHeader = document.getElementById("noteHeading");
-let previewParagraph = document.getElementById("paragraph");
+let previewHeader = document.getElementById("previewHeader");
+let previewParagraph = document.getElementById("previewParagraph");
 
 dottedGrid.addEventListener("mousedown", handleMouseDown);
 dottedGrid.addEventListener("mouseup", handleMouseUp);
@@ -25,6 +26,7 @@ addBtn.addEventListener("click", visiblityHandler);
 backBtn.addEventListener("click", backVisiblityHandler);
 sidebar.addEventListener("click", closeNote);
 previewHeader.addEventListener("change", updateHeaderIfChanged);
+previewHeader.addEventListener("change", sendValueToUpdateSidebar);
 previewParagraph.addEventListener("change", updateParagraphIfChanged);
 
 // notes.forEach((note) => {

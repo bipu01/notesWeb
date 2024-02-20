@@ -12,18 +12,30 @@ export function appendNote(x, y) {
     newNote.style.gridColumn = `span 1`;
     newNote.style.gridRow = `span 1`;
     newNote.style.height = `9rem`;
-  } else if (x <= 1 && y > 1) {
-    newNote.style.gridColumn = `span 1`;
-    newNote.style.gridRow = `span ${y}`;
-    newNote.style.height = `${9 + (5 * (y - 1)) / 16}rem`;
-  } else if (x > 1 && y <= 1) {
+  } else if (x <= 2) {
     newNote.style.gridColumn = `span ${x}`;
     newNote.style.gridRow = `span 1`;
     newNote.style.height = `9rem`;
+  } else if (x <= 3) {
+    newNote.style.gridColumn = `span 3`;
+    newNote.style.gridRow = `span 1`;
+    newNote.style.height = `9rem`;
+  } else if (x <= 4) {
+    newNote.style.gridColumn = `span ${2}`;
+    newNote.style.gridRow = `span ${2}`;
+    newNote.style.height = `${18}rem`;
+  } else if (x <= 6) {
+    newNote.style.gridColumn = `span 3`;
+    newNote.style.gridRow = `span ${2}`;
+    newNote.style.height = `${18 + (5 * 2) / 16}rem`;
+  } else if (x <= 9) {
+    newNote.style.gridColumn = `span 3`;
+    newNote.style.gridRow = `span 3`;
+    newNote.style.height = `${27 + (5 * 2) / 16}rem`;
   } else {
-    newNote.style.gridColumn = `span ${x}`;
-    newNote.style.gridRow = `span ${y}`;
-    newNote.style.height = `${18 + (5 * (y - 3)) / 16}rem`;
+    newNote.style.gridColumn = `span ${3}`;
+    newNote.style.gridRow = `span ${3}`;
+    newNote.style.height = `${27 + (5 * 2) / 16}rem`;
   }
   handleCommonAppending(newNote);
 }

@@ -177,7 +177,7 @@ textarea{
     resize: none;
 
 }
-#noteHeading{
+#previewHeader{
     /* position: relative; */
     position: absolute;
     top:0%;
@@ -186,7 +186,7 @@ textarea{
     font-size: 2rem;
     font-weight: 500;
 }
-#paragraph{
+#previewParagraph{
     position: absolute;
     height: 75%;
     top: 21%;
@@ -205,3 +205,42 @@ textarea{
     filter: opacity(0.9);
 
 }
+
+/* Sidebar items */
+.sideTab{
+    width:80%;
+    margin:8px;
+    padding: 8px;
+    font-size: 14px;
+    font-weight: 400;
+    height:4rem;
+    background-color: #ffffff85;
+    border: 2px solid var(--heading-color);
+    border-radius: 4px;
+    overflow: hidden;
+    word-wrap: break-word;
+    cursor: pointer;
+
+}
+#openedNotesTab{
+    position: relative;
+
+}
+.crossBtn{
+    /* visibility: hidden; */
+    all: unset;
+    position: absolute;
+    background-color: #c61e37;
+    color: white;
+    height: 1.1rem;
+    font-size: 11px;
+    aspect-ratio: 1;
+    border-radius: 99rem;
+    top:-10%;
+    right:5%;
+    z-index: 3;
+    cursor: pointer;
+    text-align: center;
+    border: 1px solid var(--heading-color);
+}
+
