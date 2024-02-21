@@ -2,6 +2,15 @@ import { openNote } from "./mainOpenedNoteHub.js";
 
 let mainBody = document.querySelector(".mainBody");
 
+export const SelectedNote = {
+  noteId: "",
+  headerId: "",
+  paragraphId: "",
+
+  idNum: 0,
+  sideTabId: "",
+};
+
 export function appendNote(x, y) {
   let numOfNotes = mainBody.dataset.number;
   let newNote = document.createElement("div");
@@ -46,10 +55,10 @@ const handleCreatingNewNote = (numOfNotes, newNote) => {
 
   //It appends h3 to the div with id->note${num}
   let header = document.createElement("h3");
-  header.id = `head${parseInt(numOfNotes) + 1}1`;
+  header.id = `head${parseInt(numOfNotes) + 1}`;
 
   let paragraph = document.createElement("p");
-  paragraph.id = `paragraph${parseInt(numOfNotes) + 1}1`;
+  paragraph.id = `paragraph${parseInt(numOfNotes) + 1}`;
 
   newNote.appendChild(header);
   newNote.appendChild(paragraph);
@@ -57,7 +66,9 @@ const handleCreatingNewNote = (numOfNotes, newNote) => {
 
 const handleCommonAppending = (newNote) => {
   mainBody.appendChild(newNote);
-  newNote.addEventListener("click", () => openNote(newNote.id));
-  // console.log(newNote, newNote.id);
+  newNote.addEventListener("click", (e) => {
+    let idNumber = parseInt(e.target.id.replace(/\D/g, ""), 10);
+    openNote(idNumber);
+  });
   mainBody.dataset.number = parseInt(mainBody.dataset.number) + 1;
 };

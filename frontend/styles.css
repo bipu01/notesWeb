@@ -213,7 +213,8 @@ textarea{
     padding: 8px;
     font-size: 14px;
     font-weight: 400;
-    height:4rem;
+    min-height:5rem;
+    min-width: 3rem;
     background-color: #ffffff85;
     border: 2px solid var(--heading-color);
     border-radius: 4px;
@@ -222,11 +223,17 @@ textarea{
     cursor: pointer;
 
 }
-#openedNotesTab{
+/* .sideTab:hover{
+    .closeBtn{
+        visibility: visible;
+    }
+} */
+
+/* #openedNotesTab{
     position: relative;
 
-}
-.crossBtn{
+} */
+.closeBtn{
     /* visibility: hidden; */
     all: unset;
     position: absolute;
@@ -236,11 +243,26 @@ textarea{
     font-size: 11px;
     aspect-ratio: 1;
     border-radius: 99rem;
-    top:-10%;
-    right:5%;
     z-index: 3;
     cursor: pointer;
     text-align: center;
     border: 1px solid var(--heading-color);
+    z-index: 9;
+}
+.backToHome{
+    all: unset;
+    position: absolute;
+    top:2%;
+    left: 14%;
+    height: 2.5rem;
+    color: white;
+    font-size: 10px;
+    /* padding:px; */
+    text-align: center;
+    aspect-ratio: 1;
+    border-radius: 99rem;
+    background-color: green;
+    cursor: pointer;
+    z-index: 5;
 }
 

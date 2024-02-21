@@ -3,7 +3,7 @@ import {
   visiblityHandler,
   backVisiblityHandler,
 } from "./visiblityOfAddNewNotes.js";
-import { openNote, closeNote } from "./mainOpenedNoteHub.js";
+import { closeNote } from "./mainOpenedNoteHub.js";
 import {
   updateHeaderIfChanged,
   updateParagraphIfChanged,
@@ -19,12 +19,13 @@ let notes = document.querySelectorAll(".notes");
 let sidebar = document.querySelector(".sidebar");
 let previewHeader = document.getElementById("previewHeader");
 let previewParagraph = document.getElementById("previewParagraph");
+let homeBackBtn = document.querySelector(".backToHome");
 
 dottedGrid.addEventListener("mousedown", handleMouseDown);
 dottedGrid.addEventListener("mouseup", handleMouseUp);
 addBtn.addEventListener("click", visiblityHandler);
 backBtn.addEventListener("click", backVisiblityHandler);
-sidebar.addEventListener("click", closeNote);
+homeBackBtn.addEventListener("click", closeNote);
 previewHeader.addEventListener("change", updateHeaderIfChanged);
 previewHeader.addEventListener("change", sendValueToUpdateSidebar);
 previewParagraph.addEventListener("change", updateParagraphIfChanged);

@@ -26,8 +26,8 @@ export const handleMouseUp = (e) => {
       boxesOnX++;
     }
   });
-  console.log("boxesOnX", boxesOnX);
-  console.log("boxesOnY:", boxesOnY);
+  // console.log("boxesOnX", boxesOnX);
+  // console.log("boxesOnY:", boxesOnY);
 
   appendNote(boxesOnX, boxesOnX);
   backVisiblityHandler();
