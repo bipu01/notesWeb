@@ -30,8 +30,14 @@ export const openInSidebar = (selectedNote) => {
     if (SelectedNote.idNum == idNumOfSelf) {
       return console.log("same note is open");
     }
-    openNote(idNumOfSelf);
-    updateSelectedNote(idNumOfSelf);
+    let previewPage = document.querySelector(".previewPage");
+    // previewPage.style.transform = "translateX(-10%)";
+    previewPage.style.transform = "scale(0.95) translateX(-3%)";
+    previewPage.style.transition = "all 0.15s ease-in-out";
+
+    setTimeout(() => openNote(idNumOfSelf), 150);
+
+    // updateSelectedNote(idNumOfSelf);
   });
 
   let sideTab = document.getElementById(newDiv.id);

@@ -4,14 +4,17 @@ import { openInSidebar } from "./sideBarOpenUpdate.js";
 export let previewPage = document.querySelector(".previewPage");
 export let previewHeader = document.getElementById("previewHeader");
 export let previewParagraph = document.getElementById("previewParagraph");
+let addBtn = document.querySelector(".addBtn");
 //
 //
 //
 //It makes the Opened note "Visible"
 export const openNote = (idNumber) => {
-  // let idNumber = parseInt(e.target.id.replace(/\D/g, ""), 10);
+  // previewPage.style.transform = "scale(1)";
+  previewPage.style.transform = "scale(1) translateX(0%)";
   updateSelectedNote(idNumber);
   previewPage.style.visibility = "visible";
+  addBtn.style.visibility = "hidden";
 };
 
 export const updateSelectedNote = (idNumber) => {
