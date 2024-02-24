@@ -16,11 +16,18 @@
 <body>
     <div class="parentOfAll">
         <div class="sidebar">
-            <div id="optionsAtSidebar">
-                <img src="../icons/recentsWhite.svg" class="icons" alt="">
-                <img src="../icons/favsWhite.svg" class="icons" alt="">
+            <div id="iconsAtSidebar">
+                <div class="favTabsIcon">
+                    <img src="../icons/favsWhite.svg" class="icons" id="favTabsIcon" alt="">
+                </div>
+                <div class="recentTabsIcon">
+                    <img src="../icons/recentsWhite.svg" class="icons" id="recentTabsIcon" alt="">
+                </div>
             </div>
-            <div id="openedNotesTab"></div>
+            <div class="slidesAtSidebar">
+                <div id="favTabsSidebar">Favourates</div>
+                <div id="recentTabsSidebar">Recents</div>
+            </div>
         </div>
         <button class="backToHome">
             <img src="../icons/backBtn.svg" class="icon" alt="backBtn">
@@ -87,6 +94,7 @@
         </div>
         <div class="mainBody dataHolder" data-number="70">
             <div class="blankPageText">Add Your notes and thoughts here</div>
+            <div class="notesBorder"></div>
             <!-- <div class="notes" id="note1">
                 <h3 id="head11">Hello</h3>
                 <p id="paragraph11">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quaerat officia porro

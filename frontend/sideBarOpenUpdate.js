@@ -1,57 +1,78 @@
 import { SelectedNote } from "./appendNewNote.js";
+import { changePreviewStyleToRecents } from "./changeStyles.js";
 import {
   closeNote,
   openNote,
   updateSelectedNote,
 } from "./mainOpenedNoteHub.js";
+import {
+  backVisiblityHandler,
+  makeNotesInvisible,
+  makeNotesVisible,
+} from "./visiblityOfAddNewNotes.js";
 
-export const OpenedNotes = [];
-export let openedNotesTab = document.getElementById("openedNotesTab");
+export let OpenedNotes = [];
+export let recentTabsSidebar = document.getElementById("recentTabsSidebar");
 
 //opens Side tab in sidebar
-export const openInSidebar = (selectedNote) => {
-  if (isOpenInSidebar(selectedNote.noteId, OpenedNotes)) {
-    let text = document.createTextNode(selectedNote.header.innerHTML);
+export const openInSidebar = (selectedNote, openedNotes) => {
+  if (isOpenInSidebar(selectedNote.noteId, openedNotes)) {
+    // console.log("fine till open in sideBar");
+    let text = document.createTextNode(selectedNote.header.textContent);
+    // console.log("text", text);
+    // console.log("SelectedNote", SelectedNote);
+    // console.log("OpenedNotes", OpenedNotes);
     updateSidebarTab(text);
-    return console.log("Is open in sidebar");
+    return;
   }
-  //It adds this "noteId" to the list of opened Notes in sidebar
-  OpenedNotes.push(SelectedNote.noteId);
-  let newDiv = document.createElement("div");
-  newDiv.id = `sideTab${selectedNote.idNum}`;
-  newDiv.classList.add("sideTab");
-  let text = document.createTextNode(selectedNote.header.textContent);
+  // console.log("openedNotes", OpenedNotes);
+  let newSideTab = document.createElement("div");
+  newSideTab.id = `sideTab${selectedNote.idNum}`;
+  newSideTab.classList.add("sideTab");
+  let text = document.createTextNode(selectedNote.header.innerHTML);
 
-  newDiv.appendChild(text);
-  openedNotesTab.appendChild(newDiv);
+  newSideTab.appendChild(text);
+  recentTabsSidebar.appendChild(newSideTab);
 
-  newDiv.addEventListener("click", (e) => {
-    let idNumOfSelf = parseInt(e.target.id.replace(/\D/g, ""), 10);
-    if (SelectedNote.idNum == idNumOfSelf) {
-      return console.log("same note is open");
-    }
+  newSideTab.addEventListener("click", (e) => {
+    let idNum = parseInt(e.target.id.replace(/\D/g, ""), 10);
     let previewPage = document.querySelector(".previewPage");
-    // previewPage.style.transform = "translateX(-10%)";
     previewPage.style.transform = "scale(0.95) translateX(-3%)";
     previewPage.style.transition = "all 0.15s ease-in-out";
 
-    setTimeout(() => openNote(idNumOfSelf), 150);
-
-    // updateSelectedNote(idNumOfSelf);
+    makeNotesInvisible();
+    updateSelectedNote(idNum);
+    openNote(idNum);
+    changePreviewStyleToRecents();
   });
 
-  let sideTab = document.getElementById(newDiv.id);
+  OpenedNotes.push(selectedNote.noteId);
+  let sideTab = document.getElementById(newSideTab.id);
   sideTab.style.position = "relative";
+  // newSideTab.style.position = "relative";
 
-  makeCloseBtn(selectedNote.idNum, newDiv);
+  makeCloseBtnForRecentTabs(selectedNote.idNum, newSideTab);
+
+  newSideTab.addEventListener("mouseover", (e) => {
+    let idNum = parseInt(e.target.id.replace(/\D/g, ""), 10);
+    let closeBtn = document.getElementById(`closeRecentBtn${idNum}`);
+    closeBtn.style.opacity = "1";
+  });
+  newSideTab.addEventListener("mouseleave", (e) => {
+    let idNum = parseInt(e.target.id.replace(/\D/g, ""), 10);
+    let closeBtn = document.getElementById(`closeRecentBtn${idNum}`);
+    closeBtn.style.opacity = "0";
+  });
 };
 
 export const updateSidebarTab = (textVal) => {
+  console.log("sideTabId", SelectedNote.sideTabId);
   let relatedSideTab = document.getElementById(SelectedNote.sideTabId);
+  console.log("relatedSidetab", SelectedNote.sideTabId);
   relatedSideTab.innerHTML = "";
   relatedSideTab.appendChild(textVal);
 
-  makeCloseBtn(SelectedNote.idNum, relatedSideTab);
+  makeCloseBtnForRecentTabs(SelectedNote.idNum, relatedSideTab);
 };
 
 export const sendValueToUpdateSidebar = (e) => {
@@ -60,28 +81,55 @@ export const sendValueToUpdateSidebar = (e) => {
 };
 
 //
-const makeCloseBtn = (idNum, newDiv) => {
+export const makeCloseBtnForRecentTabs = (idNum, newSideTab) => {
   let closeBtn = document.createElement("button");
   closeBtn.classList.add("closeBtn");
-  closeBtn.id = `closeBtn${idNum}`;
+  closeBtn.classList.add("closeRecentBtn");
+  closeBtn.id = `closeRecentBtn${idNum}`;
+
+  newSideTab.appendChild(closeBtn);
 
   closeBtn.addEventListener("click", (e) => {
+    e.stopPropagation();
     let parentId = `sideTab${e.target.id.replace(/\D/g, "")}`;
     let parent = document.getElementById(parentId);
-    openedNotesTab.removeChild(parent);
+    recentTabsSidebar.removeChild(parent);
     let parentIndex = OpenedNotes.indexOf(parentId);
     OpenedNotes.splice(parentIndex, 1);
     closeNote();
+    makeNotesVisible();
+    backVisiblityHandler();
   });
-  newDiv.appendChild(closeBtn);
+  let specificallySelfTab = document.getElementById(`closeRecentBtn${idNum}`);
+  specificallySelfTab.style.right = "0%";
+  specificallySelfTab.style.top = "0%";
+};
+export const makeCloseBtnForFavTabs = (idNum, newSideTab) => {
+  let closeBtn = document.createElement("button");
+  closeBtn.classList.add("closeBtn");
+  closeBtn.classList.add("closeFavBtn");
+  closeBtn.id = `closeFavBtn${idNum}`;
+  newSideTab.appendChild(closeBtn);
+  let favTabsSidebar = document.getElementById("favTabsSidebar");
 
-  let closeBtnOfDiv = document.getElementById(closeBtn.id);
-  closeBtnOfDiv.style.right = "0%";
-  closeBtnOfDiv.style.top = "0%";
+  closeBtn.addEventListener("click", (e) => {
+    e.stopPropagation();
+    let parentId = `favTab${e.target.id.replace(/\D/g, "")}`;
+    let parent = document.getElementById(parentId);
+    favTabsSidebar.removeChild(parent);
+    let parentIndex = OpenedNotes.indexOf(parentId);
+    OpenedNotes.splice(parentIndex, 1);
+    closeNote();
+    makeNotesVisible();
+    backVisiblityHandler();
+  });
+  let specificallySelfTab = document.getElementById(`closeFavBtn${idNum}`);
+  specificallySelfTab.style.right = "0%";
+  specificallySelfTab.style.top = "0%";
 };
 
 //Checks if a Note is open in Sidebar
-export const isOpenInSidebar = (noteID, openedNotes) => {
+export let isOpenInSidebar = (noteID, openedNotes) => {
   for (let i = 0; i < openedNotes.length; i++) {
     if (openedNotes[i] == noteID) {
       console.log(openedNotes[i]);
