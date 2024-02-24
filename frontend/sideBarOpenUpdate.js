@@ -1,5 +1,4 @@
 import { SelectedNote } from "./appendNewNote.js";
-import { changePreviewStyleToRecents } from "./changeStyles.js";
 import {
   closeNote,
   openNote,

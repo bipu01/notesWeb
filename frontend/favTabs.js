@@ -1,43 +1,9 @@
 import { SelectedNote } from "./appendNewNote.js";
 import { FavNotes } from "./appendNewNote.js";
+import { changePreviewStyleToFav } from "./changeStyles.js";
 import { openNote, updateSelectedNote } from "./mainOpenedNoteHub.js";
 import { makeCloseBtnForFavTabs } from "./sideBarOpenUpdate.js";
 import { makeNotesInvisible } from "./visiblityOfAddNewNotes.js";
-
-export const showrecentTabs = (e) => {
-  let slidesAtSidebar = document.querySelector(".slidesAtSidebar");
-  let favTabsSidebar = document.getElementById("favTabsSidebar");
-  let recentTabsSidebar = document.getElementById("recentTabsSidebar");
-  let recentTabsIcon = document.getElementById("recentTabsIcon");
-  let favTabsIcon = document.getElementById("favTabsIcon");
-
-  favTabsIcon.src = "../icons/favsWhite.svg";
-  slidesAtSidebar.style.right = "100%";
-  setTimeout(() => {
-    recentTabsIcon.style.opacity = "1";
-    favTabsIcon.style.opacity = "0.7";
-    favTabsSidebar.style.visibility = "hidden";
-    recentTabsSidebar.style.visibility = "visible";
-  }, 200);
-};
-
-export const showFavTabs = (e) => {
-  let recentTabsSidebar = document.getElementById("recentTabsSidebar");
-  let favTabsSidebar = document.getElementById("favTabsSidebar");
-  let sidebarSlides = document.querySelector(".slidesAtSidebar");
-  //   let icons = document.querySelector(".icons");
-  let favTabsIcon = document.getElementById("favTabsIcon");
-
-  favTabsIcon.src = "../icons/favNotesIcon.svg";
-  sidebarSlides.style.right = "0%";
-  recentTabsSidebar.style.visibility = "hidden";
-  setTimeout(() => {
-    favTabsIcon.style.opacity = "1";
-    recentTabsIcon.style.opacity = "0.7";
-
-    favTabsSidebar.style.visibility = "visible";
-  }, 100);
-};
 
 export const addTofavourateSidebar = (idNum) => {
   let noteId = `note${idNum}`;
@@ -85,7 +51,7 @@ export const addTofavourateSidebar = (idNum) => {
     closeBtn.style.opacity = "0";
   });
 
-  console.log(favTabsSlider);
+  // console.log(favTabsSlider);
 };
 
 export const updateFavourate = (text, selectedNote) => {

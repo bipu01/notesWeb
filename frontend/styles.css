@@ -22,12 +22,12 @@
     --recentTabs-bg-color:#7ba3d854;
     --favTabs-bg-color:#e9bdbd56;
     --recentTabs-previewPage-bg-color:#bab6cda0;
-    --favTabs-previewPage-bg-color:#f9e5e556;
+    --favTabs-previewPage-bg-color:#fceded56;
 }
 
 body{
     background-color: var(--body-color);
-    background-image: url(../icons/bg3.svg);
+    background-image: url(../icons/bg4.svg);
     background-size: cover;
     /* background-blend-mode: multiply; */
     /* backdrop-filter: blur(1px); */
@@ -107,8 +107,9 @@ body{
     top:2%;
     right:2%;
     width:6rem;
-    height:6rem;
-    background-color: rgb(215, 215, 215);
+    height:8rem;
+    background-color: rgba(215, 215, 215, 0.478);
+    
     border-radius: 4px;
     display: flex;
     flex-direction: column;
@@ -132,6 +133,7 @@ body{
     border-radius: 4px;
     color:white;
     transition: all 0.1s ease-out;
+    padding: 4px;
     /* background-color: #757373e1; */
 }
 .deleteNote:hover{
@@ -141,8 +143,9 @@ body{
     height: 33%;
     width: 100%;
     border-radius: 4px;
-    background-color: white;
+    background-color: rgba(255, 255, 255, 0.385);
     transition: all 0.1s ease-out;
+    padding: 4px;
 }
 .addToFav:hover{
     background-color: var(--option-hover-color);;
@@ -150,12 +153,18 @@ body{
 .back{
     height:33%;
     width: 100%;
+    font-weight: 500;
+    color: rgba(0, 0, 0, 0.711);
     background-color: white;
+    background-color: rgba(215, 215, 215, 0.478);
     border-radius: 4px;
     transition: all 0.1s ease-out;
+    padding: 4px;
 }
 .back:hover{
-    background-color: var(--option-hover-color);;
+    background-color: var(--option-hover-color);
+    color: white;
+
 }
 
 .addBtn{
@@ -393,12 +402,12 @@ textarea{
 
 .favTab,.sideTab{
     /* width:89%; */
-    margin:8px;
+    margin:clamp(2px, 5%, 1rem);
     padding: 8px;
     font-size: 14px;
     font-weight: 400;
     color: var(--dotted-text-color);
-    width: clamp(3rem,84%,10rem);
+    width: clamp(3rem,90%,15rem);
     height: clamp(5rem, 7vw, 10rem);
 
     line-height: 14px;
@@ -408,6 +417,8 @@ textarea{
     cursor: pointer;
 
     background-color: rgba(192, 243, 202, 0.216);
+    
+    /* background-color: rgba(255, 0, 0, 0.223); */
 
 }
 
@@ -437,9 +448,10 @@ textarea{
 .backToHome{
     all: unset;
     position: absolute;
+    visibility: hidden;
     top:1%;
     /* left:10%; */
-    left: 15%;
+    left: 17%;
     background-color: rgba(0, 0, 0, 0.5);
     border-radius: 99rem;
     cursor: pointer;
@@ -447,10 +459,13 @@ textarea{
     box-shadow: 5px 5px 20px rgba(0, 0, 0, 0.3);
     width:2rem;
     padding: 7px 5px 0px 7px;
-    transition: all 0.3s ease-out;
+    transition: all 0.1s ease-out;
 }
 .backToHome:hover{
-    background-color: rgba(0, 0, 0, 0.8);
+    background-color: rgba(0, 0, 0, 0.596);
+}
+.icon{
+    transition: all 0.1s ease-out;
 }
 
 

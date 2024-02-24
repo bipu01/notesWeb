@@ -1,4 +1,5 @@
-import { addTofavourateSidebar } from "./favTabs.js";
+import { animateAddedToFav, animateDeleted } from "./animations.js";
+import { addTofavourateSidebar, isOnFavourates } from "./favTabs.js";
 import { openNote, updateSelectedNote } from "./mainOpenedNoteHub.js";
 import {
   removeNoteFromFavSidebar,
@@ -180,6 +181,7 @@ const createDeleteNote = (notesOptions, idNum) => {
     let notesOptions = document.getElementById(`notesOptions${idNum}`);
     let note = document.getElementById(`note${idNum}`);
     let mainBody = document.querySelector(".mainBody");
+    animateDeleted(idNum);
     mainBody.removeChild(note);
     removeNoteFromRecents(idNum);
     removeNoteFromFavSidebar(idNum);
@@ -212,11 +214,13 @@ const createAddToFav = (notesOptions, idNum) => {
   function handleEvents(e) {
     e.stopPropagation();
     let idNum = parseInt(e.target.id.replace(/\D/g, ""), 10);
-    FavNotes.push(`note${idNum}`);
-
-    let notesOptions = document.getElementById(`notesOptions${idNum}`);
-    notesOptions.style.visibility = "hidden";
-    addTofavourateSidebar(idNum);
+    if (!isOnFavourates(`note${idNum}`, FavNotes)) {
+      FavNotes.push(`note${idNum}`);
+      let notesOptions = document.getElementById(`notesOptions${idNum}`);
+      notesOptions.style.visibility = "hidden";
+      addTofavourateSidebar(idNum);
+      animateAddedToFav();
+    }
   }
 };
 

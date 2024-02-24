@@ -1,6 +1,10 @@
 import { SelectedNote } from "./appendNewNote.js";
 import { OpenedNotes, openInSidebar } from "./sideBarOpenUpdate.js";
-import { makeNotesInvisible } from "./visiblityOfAddNewNotes.js";
+import {
+  makeBackButtonInvisible,
+  makeBackButtonVisible,
+  makeNotesInvisible,
+} from "./visiblityOfAddNewNotes.js";
 
 export let previewPage = document.querySelector(".previewPage");
 export let previewHeader = document.getElementById("previewHeader");
@@ -11,6 +15,7 @@ let addBtn = document.querySelector(".addBtn");
 //
 //It makes the Opened note "Visible"
 export const openNote = (idNumber) => {
+  makeBackButtonVisible();
   updateSelectedNote(idNumber);
   makeNotesInvisible();
   setTimeout(() => {
@@ -58,9 +63,10 @@ export const updateTextArea = (selectedNote) => {
 
 //
 //It makes the Opened note "Invisible"
-export const closeNote = () => {
+export const closeNote = (e) => {
   let previewPage = document.querySelector(".previewPage");
   previewPage.style.visibility = "hidden";
 
+  makeBackButtonInvisible();
   // sideBarOpenedNotesTab.removeChild(newDiv);
 };
