@@ -44,6 +44,7 @@ export function appendNote(x, y) {
   // newNote.style.gridRow = `span ${x}`;
   newNote.style.gridColumn = `span ${y}`;
   newNote.style.height = `${16}rem`;
+  // newNote.style.height = `${5}rem`;
   // newNote.style.width = `${y * 9}rem`;
   //Elongates to X if 'x' is passed ans viseversa
 
