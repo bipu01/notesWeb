@@ -33,7 +33,7 @@ const createDeleteBtnForPreviewPage = (previewOptionsPanel) => {
   let deleteIcon = document.createElement("img");
   deleteIcon.classList.add("deleteNoteIcon");
   deleteIcon.textContent = "Delete";
-  deleteIcon.src = "../icons/deleteNoteIcon.svg";
+  deleteIcon.src = "./icons/deleteNoteIcon.svg";
   deleteNote.appendChild(deleteIcon);
 
   deleteNote.addEventListener("click", deleteFunction);
@@ -95,7 +95,7 @@ export const createPreviewAddToFav = (previewOptionsPanel, idNum) => {
   favNoteIcon.classList.add("favNoteIcon");
   favNoteIcon.id = `favNoteIcon${idNum}`;
   favNoteIcon.textContent = "Fav";
-  favNoteIcon.src = "../icons/favNotesIcon.svg";
+  favNoteIcon.src = "./icons/favNotesIcon.svg";
   addTofav.appendChild(favNoteIcon);
 
   addTofav.addEventListener("click", handleEvents);
@@ -120,30 +120,27 @@ export const createPreviewAddToFav = (previewOptionsPanel, idNum) => {
 };
 
 export const handleHeadingHighlight = (e) => {
-  let selection = window.getSelection().toString();
-  console.log("selection", selection);
-  if (selection) {
-    const range = window.getSelection().getRangeAt(0);
-    console.log(range.commonAncestorContainer);
-    let highlightedText = range.toString();
-    console.log("range", highlightedText);
-
-    // Check if the new selection overlaps with the existing one
-    const existingSpan = document.querySelector(".highlitedText");
-    if (existingSpan && range.intersectsNode(existingSpan)) {
-      // Update the existing span
-      let compoundedSpan = document.createElement("span");
-      compoundedSpan.className = "highlitedText";
-
-      existingSpan.textContent = highlightedText;
-    } else {
-      // Create a new span for the selected text
-      let newSpan = document.createElement("span");
-      newSpan.className = "highlitedText";
-      newSpan.textContent = highlightedText;
-
-      // Surround the selected text with the new span element
-      range.surroundContents(newSpan);
-    }
-  }
+  // let selection = window.getSelection().toString();
+  // console.log("selection", selection);
+  // if (selection) {
+  //   const range = window.getSelection().getRangeAt(0);
+  //   console.log(range.commonAncestorContainer);
+  //   let highlightedText = range.toString();
+  //   console.log("range", highlightedText);
+  //   // Check if the new selection overlaps with the existing one
+  //   const existingSpan = document.querySelector(".highlitedText");
+  //   if (existingSpan && range.intersectsNode(existingSpan)) {
+  //     // Update the existing span
+  //     let compoundedSpan = document.createElement("span");
+  //     compoundedSpan.className = "highlitedText";
+  //     existingSpan.textContent = highlightedText;
+  //   } else {
+  //     // Create a new span for the selected text
+  //     let newSpan = document.createElement("span");
+  //     newSpan.className = "highlitedText";
+  //     newSpan.textContent = highlightedText;
+  //     // Surround the selected text with the new span element
+  //     range.surroundContents(newSpan);
+  //   }
+  // }
 };

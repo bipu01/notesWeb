@@ -5,7 +5,7 @@ export const showrecentTabs = () => {
   let recentTabsIcon = document.getElementById("recentTabsIcon");
   let favTabsIcon = document.getElementById("favTabsIcon");
 
-  favTabsIcon.src = "../icons/favsWhite.svg";
+  favTabsIcon.src = "./icons/favsWhite.svg";
   slidesAtSidebar.style.right = "100%";
   setTimeout(() => {
     recentTabsIcon.style.opacity = "1";
@@ -22,7 +22,7 @@ export const showFavTabs = () => {
   //   let icons = document.querySelector(".icons");
   let favTabsIcon = document.getElementById("favTabsIcon");
 
-  favTabsIcon.src = "../icons/favNotesIcon.svg";
+  favTabsIcon.src = "./icons/favNotesIcon.svg";
   sidebarSlides.style.right = "0%";
   recentTabsSidebar.style.visibility = "hidden";
   setTimeout(() => {

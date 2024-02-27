@@ -100,7 +100,7 @@ export const appendThreeDotToNewNote = (idNum, newNote) => {
   threeDotBox.id = `threeDotBox${idNum}`;
 
   let threeDot = document.createElement("img");
-  threeDot.src = "../icons/notesOptionBlack.svg";
+  threeDot.src = "./icons/notesOptionBlack.svg";
   threeDot.classList.add("threeDot");
   threeDot.id = `threeDot${idNum}`;
   threeDotBox.appendChild(threeDot);
@@ -157,7 +157,7 @@ export const createDeleteNote = (notesOptions, idNum) => {
   let deleteIcon = document.createElement("img");
   deleteIcon.classList.add("deleteNoteIcon");
   deleteIcon.textContent = "Delete";
-  deleteIcon.src = "../icons/deleteNoteIcon.svg";
+  deleteIcon.src = "./icons/deleteNoteIcon.svg";
   deleteNote.appendChild(deleteIcon);
 
   deleteNote.addEventListener("click", deleteFunction);
@@ -206,7 +206,7 @@ export const createAddToFav = (notesOptions, idNum) => {
   favNoteIcon.classList.add("favNoteIcon");
   favNoteIcon.id = `favNoteIcon${idNum}`;
   favNoteIcon.textContent = "Fav";
-  favNoteIcon.src = "../icons/favNotesIcon.svg";
+  favNoteIcon.src = "./icons/favNotesIcon.svg";
   addTofav.appendChild(favNoteIcon);
 
   addTofav.addEventListener("click", handleEvents);

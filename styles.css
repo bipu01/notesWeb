@@ -31,7 +31,7 @@
 
 body{
     background-color: var(--body-color);
-    background-image: url(../icons/bg4.svg);
+    background-image: url(./icons/bg4.svg);
     background-size: cover;
     /* background-blend-mode: multiply; */
     /* backdrop-filter: blur(1px); */
