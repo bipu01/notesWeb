@@ -34,8 +34,6 @@ body{
     background-image: url(./icons/bg4.svg);
     background-size: cover;
     /* background-blend-mode: multiply; */
-    /* backdrop-filter: blur(1px); */
-    /* -webkit-backdrop-filter: blur(1px); */
     transition: all 0.2s ease-in;
 }
 
@@ -451,12 +449,6 @@ body{
     right:0%;
     z-index: 5;
 }
-.recentTabsIcon{
-    /* background-color: #ffffff5a; */
-    /* width: 45%;
-    height: 100%; */
-    /* padding: 1rem; */
-}
 
 .favTab,.sideTab{
     /* width:89%; */
@@ -527,6 +519,75 @@ body{
 }
 .icon{
     transition: all 0.1s ease-out;
+}
+
+@media only screen and (max-width:450px){
+    .parentOfAll{
+        height: 100vh;
+        width: 100vw;
+        display: grid;
+        grid-template-areas: "main main main main main main main";
+        /* gap: 5px; */
+    }
+
+    .mainBody{
+        grid-area: main;
+        width: 100vw;
+        overflow-y: scroll;
+    }
+    .blankPageText{
+        position: absolute;
+        width:50%;
+        color: var(--dotted-text-color);
+        font-size: 2rem;
+        top:30%;
+        left:30%;
+        font-weight: 600;
+        user-select: none;
+    
+    }
+    .notesBorder{
+        position: absolute;
+        width:100vw;
+    }
+    .sidebar{
+        visibility: hidden;
+        position: relative;
+        grid-area: sidebar;
+        height: 100vh;
+        /* width:6rem; */
+        width: calc((1/7)*100vw);
+        background-color: var(--sidebar-color);
+        backdrop-filter: blur(20px);
+        -webkit-backdrop-filter: blur(20px);
+        /* transition: all 0.5s linear; */
+    }
+    .sidebar::after{
+        position: absolute;
+        content: " ";
+        width: 1px;
+        height:100vh;
+        background-color: #ffffff38;
+        top:0%;
+        right:0%;
+        z-index: 5;
+    }
+    /* .notes{
+        position: relative;
+        border-radius:4px;
+        background: var(--notes-color);
+        backdrop-filter: blur(20px);
+        -webkit-backdrop-filter: blur(10px);
+        color: #30270e;
+        padding: 0.5rem 1rem 0.5rem 0.5rem;
+        word-wrap: break-word;
+        overflow: hidden;
+        z-index: 0;
+        margin:0px 5px 0px 0px;
+        box-shadow: 0px 2px 10px rgba(86, 87, 66, 0.37);
+        transition: all 0.15s ease-in;
+    } */
+
 }
 
 
