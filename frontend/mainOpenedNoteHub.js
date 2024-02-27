@@ -1,10 +1,11 @@
 import { SelectedNote } from "./appendNewNote.js";
+import { updatePreviewPage } from "./previewPageFeatures.js";
 import { OpenedNotes, openInSidebar } from "./sideBarOpenUpdate.js";
 import {
   makeBackButtonInvisible,
   makeBackButtonVisible,
   makeNotesInvisible,
-} from "./visiblityOfAddNewNotes.js";
+} from "./visibilityOfComponents.js";
 
 export let previewPage = document.querySelector(".previewPage");
 export let previewHeader = document.getElementById("previewHeader");
@@ -52,13 +53,8 @@ export const updateSelectedNote = (idNumber) => {
     );
   }
   // console.log(SelectedNote.paragraph.innerHTML);
-  updateTextArea(SelectedNote);
+  updatePreviewPage(SelectedNote);
   openInSidebar(SelectedNote, OpenedNotes);
-};
-
-export const updateTextArea = (selectedNote) => {
-  previewHeader.value = selectedNote.header.textContent;
-  previewParagraph.value = selectedNote.paragraph.textContent;
 };
 
 //
@@ -69,4 +65,12 @@ export const closeNote = (e) => {
 
   makeBackButtonInvisible();
   // sideBarOpenedNotesTab.removeChild(newDiv);
+};
+
+export const sizeSelectionPage = () => {
+  // let sizeSelectionPage = document.createElement("div");
+  // sizeSelectionPage.className = "sizeSelctionPage";
+  // let parentOfAll = document.querySelector(".parentOfAll");
+  // parentOfAll.appendChild(sizeSelectionPage);
+  let size1x1 = document.querySelector(".size1x1");
 };

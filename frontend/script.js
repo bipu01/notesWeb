@@ -1,9 +1,8 @@
-import { handleMouseUp, handleMouseDown } from "./mouseUpDownHandler.js";
 import {
-  visiblityHandler,
+  addBtnVisiblityHandler,
   backVisiblityHandler,
   makeNotesVisible,
-} from "./visiblityOfAddNewNotes.js";
+} from "./visibilityOfComponents.js";
 import { closeNote } from "./mainOpenedNoteHub.js";
 import {
   updateHeaderIfChanged,
@@ -12,25 +11,38 @@ import {
 import { sendValueToUpdateSidebar } from "./sideBarOpenUpdate.js";
 import { sendValueToUpdateFavourates } from "./favTabs.js";
 import { showFavTabs, showrecentTabs } from "./animations.js";
+import {
+  handleHeadingHighlight,
+  handlePreviewPageFeatures,
+} from "./previewPageFeatures.js";
+import { handleSize } from "./noteSizeHandler.js";
 
 export let mainBody = document.querySelector(".mainBody");
 let addBtn = document.querySelector(".addBtn");
-let dottedGrid = document.querySelector(".dottedGrid");
+// let dottedGrid = document.querySelector(".dottedGrid");
 let previewHeader = document.getElementById("previewHeader");
 let previewParagraph = document.getElementById("previewParagraph");
 let homeBackBtn = document.querySelector(".backToHome");
 let favTabsIcon = document.getElementById("favTabsIcon");
 let recentTabsIcon = document.getElementById("recentTabsIcon");
+let previewOption = document.querySelector(".previewOptions");
+let noteSizes = document.querySelectorAll(".size");
 
-dottedGrid.addEventListener("mousedown", handleMouseDown);
-dottedGrid.addEventListener("mouseup", handleMouseUp);
-addBtn.addEventListener("click", visiblityHandler);
+// dottedGrid.addEventListener("mousedown", handleMouseDown);
+noteSizes.forEach((noteSize) => {
+  noteSize.addEventListener("click", handleSize);
+});
+
+addBtn.addEventListener("click", addBtnVisiblityHandler);
 homeBackBtn.addEventListener("click", closeNote);
 homeBackBtn.addEventListener("click", backVisiblityHandler);
 homeBackBtn.addEventListener("click", makeNotesVisible);
-previewHeader.addEventListener("change", updateHeaderIfChanged);
-previewHeader.addEventListener("change", sendValueToUpdateSidebar);
-previewHeader.addEventListener("change", sendValueToUpdateFavourates);
-previewParagraph.addEventListener("change", updateParagraphIfChanged);
+previewHeader.addEventListener("input", updateHeaderIfChanged);
+previewHeader.addEventListener("input", sendValueToUpdateSidebar);
+previewHeader.addEventListener("input", sendValueToUpdateFavourates);
+previewHeader.addEventListener("mouseup", handleHeadingHighlight);
+previewParagraph.addEventListener("input", updateParagraphIfChanged);
+// previewParagraph.addEventListener("keypress", updateParagraphIfChanged);
 favTabsIcon.addEventListener("click", showFavTabs);
 recentTabsIcon.addEventListener("click", showrecentTabs);
+previewOption.addEventListener("click", handlePreviewPageFeatures);

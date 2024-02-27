@@ -1,4 +1,5 @@
 import { SelectedNote } from "./appendNewNote.js";
+import { changePreviewStyleToRecents } from "./changeStyles.js";
 import {
   closeNote,
   openNote,
@@ -8,7 +9,7 @@ import {
   backVisiblityHandler,
   makeNotesInvisible,
   makeNotesVisible,
-} from "./visiblityOfAddNewNotes.js";
+} from "./visibilityOfComponents.js";
 
 export let OpenedNotes = [];
 export let recentTabsSidebar = document.getElementById("recentTabsSidebar");
@@ -18,9 +19,6 @@ export const openInSidebar = (selectedNote, openedNotes) => {
   if (isOpenInSidebar(selectedNote.noteId, openedNotes)) {
     // console.log("fine till open in sideBar");
     let text = document.createTextNode(selectedNote.header.textContent);
-    // console.log("text", text);
-    // console.log("SelectedNote", SelectedNote);
-    // console.log("OpenedNotes", OpenedNotes);
     updateSidebarTab(text);
     return;
   }
@@ -65,9 +63,9 @@ export const openInSidebar = (selectedNote, openedNotes) => {
 };
 
 export const updateSidebarTab = (textVal) => {
-  console.log("sideTabId", SelectedNote.sideTabId);
+  // console.log("sideTabId", SelectedNote.sideTabId);
   let relatedSideTab = document.getElementById(SelectedNote.sideTabId);
-  console.log("relatedSidetab", SelectedNote.sideTabId);
+  // console.log("relatedSidetab", SelectedNote.sideTabId);
   relatedSideTab.innerHTML = "";
   relatedSideTab.appendChild(textVal);
 
@@ -75,7 +73,7 @@ export const updateSidebarTab = (textVal) => {
 };
 
 export const sendValueToUpdateSidebar = (e) => {
-  let text = document.createTextNode(e.target.value);
+  let text = document.createTextNode(e.target.textContent);
   updateSidebarTab(text);
 };
 
@@ -131,7 +129,7 @@ export const makeCloseBtnForFavTabs = (idNum, newSideTab) => {
 export let isOpenInSidebar = (noteID, openedNotes) => {
   for (let i = 0; i < openedNotes.length; i++) {
     if (openedNotes[i] == noteID) {
-      console.log(openedNotes[i]);
+      // console.log(openedNotes[i]);
       return true;
     }
   }

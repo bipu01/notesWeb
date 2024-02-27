@@ -1,11 +1,24 @@
-import { animateAddedToFav, animateDeleted } from "./animations.js";
+import {
+  animateAddedToFav,
+  animateAlreadyFav,
+  animateDeleted,
+} from "./animations.js";
 import { addTofavourateSidebar, isOnFavourates } from "./favTabs.js";
-import { openNote, updateSelectedNote } from "./mainOpenedNoteHub.js";
+import {
+  closeNote,
+  openNote,
+  updateSelectedNote,
+} from "./mainOpenedNoteHub.js";
 import {
   removeNoteFromFavSidebar,
   removeNoteFromRecents,
 } from "./removeNotesFromSidebars.js";
 import { OpenedNotes, isOpenInSidebar } from "./sideBarOpenUpdate.js";
+import {
+  addBlankPageText,
+  backVisiblityHandler,
+  makeNotesVisible,
+} from "./visibilityOfComponents.js";
 
 let mainBody = document.querySelector(".mainBody");
 let initialBlankPageInNotes = document.querySelector(".blankPageText");
@@ -28,37 +41,12 @@ export function appendNote(x, y) {
   let idNum = mainBody.dataset.number;
   let newNote = document.createElement("div");
   createNewNote(idNum, newNote);
-
+  // newNote.style.gridRow = `span ${x}`;
+  newNote.style.gridColumn = `span ${y}`;
+  newNote.style.height = `${16}rem`;
+  // newNote.style.width = `${y * 9}rem`;
   //Elongates to X if 'x' is passed ans viseversa
-  if (x <= 1 && y <= 1) {
-    newNote.style.gridColumn = `span 1`;
-    newNote.style.gridRow = `span 1`;
-    newNote.style.height = `9rem`;
-  } else if (x <= 2) {
-    newNote.style.gridColumn = `span ${x}`;
-    newNote.style.gridRow = `span 1`;
-    newNote.style.height = `9rem`;
-  } else if (x <= 3) {
-    newNote.style.gridColumn = `span 3`;
-    newNote.style.gridRow = `span 1`;
-    newNote.style.height = `9rem`;
-  } else if (x <= 4) {
-    newNote.style.gridColumn = `span ${2}`;
-    newNote.style.gridRow = `span ${2}`;
-    newNote.style.height = `${18}rem`;
-  } else if (x <= 6) {
-    newNote.style.gridColumn = `span 3`;
-    newNote.style.gridRow = `span ${2}`;
-    newNote.style.height = `${18 + 5 / 16}rem`;
-  } else if (x <= 9) {
-    newNote.style.gridColumn = `span 3`;
-    newNote.style.gridRow = `span 3`;
-    newNote.style.height = `${27 + (5 * 2) / 16}rem`;
-  } else {
-    newNote.style.gridColumn = `span ${3}`;
-    newNote.style.gridRow = `span ${3}`;
-    newNote.style.height = `${27 + (5 * 2) / 16}rem`;
-  }
+
   appendNewNoteToMainBody(newNote);
 }
 
@@ -77,7 +65,6 @@ const createNewNote = (idNum, newNote) => {
 
 const appendNewNoteToMainBody = (newNote) => {
   mainBody.appendChild(newNote);
-
   newNote.addEventListener("click", (e) => {
     let idNumber = parseInt(e.target.id.replace(/\D/g, ""), 10);
 
@@ -85,8 +72,9 @@ const appendNewNoteToMainBody = (newNote) => {
       updateSelectedNote(idNumber);
       return console.log("already open in sidebar");
     }
-    console.log(newNote.id);
+    // console.log(newNote.id);
     openNote(idNumber);
+
     // openInSidebar();
   });
 
@@ -106,7 +94,7 @@ const appendParagraph = (idNum, newNote) => {
   newNote.appendChild(paragraph);
 };
 
-const appendThreeDotToNewNote = (idNum, newNote) => {
+export const appendThreeDotToNewNote = (idNum, newNote) => {
   let threeDotBox = document.createElement("div");
   threeDotBox.classList.add("threeDotBox");
   threeDotBox.id = `threeDotBox${idNum}`;
@@ -150,7 +138,7 @@ const appendThreeDotToNewNote = (idNum, newNote) => {
 
 //
 
-const createNoteOptions = (newNote, idNum) => {
+export const createNoteOptions = (newNote, idNum) => {
   let notesOptions = document.createElement("div");
   notesOptions.classList.add("notesOptions");
   notesOptions.id = `notesOptions${idNum}`;
@@ -161,7 +149,7 @@ const createNoteOptions = (newNote, idNum) => {
   createBackOption(notesOptions, idNum);
 };
 
-const createDeleteNote = (notesOptions, idNum) => {
+export const createDeleteNote = (notesOptions, idNum) => {
   let deleteNote = document.createElement("div");
   deleteNote.classList.add("deleteNote");
   deleteNote.id = `deleteNote${idNum}`;
@@ -177,26 +165,39 @@ const createDeleteNote = (notesOptions, idNum) => {
   function deleteFunction(e) {
     e.stopPropagation();
     let idNum = parseInt(e.target.id.replace(/\D/g, ""), 10);
+
     // let deleteNote = document.getElementById(`deleteNote${idNum}`);
+    let blankPageText = document.querySelector(".blankPageText");
     let notesOptions = document.getElementById(`notesOptions${idNum}`);
     let note = document.getElementById(`note${idNum}`);
     let mainBody = document.querySelector(".mainBody");
     animateDeleted(idNum);
-    mainBody.removeChild(note);
-    removeNoteFromRecents(idNum);
-    removeNoteFromFavSidebar(idNum);
+    closeNote();
+    // makeNotesVisible();
+    backVisiblityHandler();
 
+    mainBody.removeChild(note);
+
+    if (isOpenInSidebar(`note${idNum}`, OpenedNotes)) {
+      removeNoteFromRecents(idNum);
+    }
+
+    if (isOnFavourates(`note${idNum}`, FavNotes)) {
+      removeNoteFromFavSidebar(idNum);
+    }
     notesOptions.style.visibility = "hidden";
 
-    if (mainBody.children.length == 1) {
-      let emptypageText = document.createElement("div");
-      emptypageText.classList.add("notesBorder");
-      mainBody.appendChild(emptypageText);
+    // console.log("mainBody.children.length", mainBody.children.length);
+    // console.log("mainBody.children", mainBody.children);
+
+    if (isMainBodyEmpty()) {
+      blankPageText.style.visibility = "visible";
+      console.log("mainBody empty");
     }
   }
 };
 
-const createAddToFav = (notesOptions, idNum) => {
+export const createAddToFav = (notesOptions, idNum) => {
   let addTofav = document.createElement("div");
   addTofav.classList.add("addToFav");
   addTofav.id = `addToFav${idNum}`;
@@ -212,19 +213,43 @@ const createAddToFav = (notesOptions, idNum) => {
   favNoteIcon.addEventListener("click", handleEvents);
 
   function handleEvents(e) {
+    // let previewOptionsPanel = document.querySelector(`.previewOptionsPanel`);
+    let notesOptions = document.querySelector(`.notesOptions`);
     e.stopPropagation();
+
     let idNum = parseInt(e.target.id.replace(/\D/g, ""), 10);
     if (!isOnFavourates(`note${idNum}`, FavNotes)) {
+      let notesOptions = document.querySelector(`.notesOptions`);
+      // let previewOptionsPanel = document.querySelector(`.previewOptionsPanel`);
       FavNotes.push(`note${idNum}`);
-      let notesOptions = document.getElementById(`notesOptions${idNum}`);
+
       notesOptions.style.visibility = "hidden";
+
       addTofavourateSidebar(idNum);
       animateAddedToFav();
+      return;
     }
+    notesOptions.style.visibility = "hidden";
+
+    // if (notesOptions) {
+    //   if (notesOptions.style.visibility == "visible") {
+    //   } else {
+    //     notesOptions.style.visibility = "visible";
+    //   }
+    // }
+
+    // if (previewOptionsPanel) {
+    //   if (previewOptionsPanel.style.visibility == "visible") {
+    //     previewOptionsPanel.style.visibility = "hidden";
+    //   } else {
+    //     previewOptionsPanel.style.visibility = "visible";
+    //   }
+    // }
+    animateAlreadyFav(idNum);
   }
 };
 
-const createBackOption = (notesOptions, idNum) => {
+export const createBackOption = (notesOptions, idNum) => {
   let back = document.createElement("div");
   back.classList.add("back");
   back.id = `back${idNum}`;
@@ -239,6 +264,15 @@ const createBackOption = (notesOptions, idNum) => {
   });
   mainBody.addEventListener("click", () => {
     let notesOptions = document.getElementById(`notesOptions${idNum}`);
-    notesOptions.style.visibility = "hidden";
+    if (notesOptions) {
+      notesOptions.style.visibility = "hidden";
+    }
   });
+};
+
+export const isMainBodyEmpty = () => {
+  if (mainBody.children.length == 2) {
+    return true;
+  }
+  return false;
 };

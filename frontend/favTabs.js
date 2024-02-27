@@ -3,7 +3,7 @@ import { FavNotes } from "./appendNewNote.js";
 import { changePreviewStyleToFav } from "./changeStyles.js";
 import { openNote, updateSelectedNote } from "./mainOpenedNoteHub.js";
 import { makeCloseBtnForFavTabs } from "./sideBarOpenUpdate.js";
-import { makeNotesInvisible } from "./visiblityOfAddNewNotes.js";
+import { makeNotesInvisible } from "./visibilityOfComponents.js";
 
 export const addTofavourateSidebar = (idNum) => {
   let noteId = `note${idNum}`;
@@ -39,13 +39,13 @@ export const addTofavourateSidebar = (idNum) => {
   });
 
   newFavTab.addEventListener("mouseover", (e) => {
-    console.log("favTab mouseOver");
+    // console.log("favTab mouseOver");
     let idNum = parseInt(e.target.id.replace(/\D/g, ""), 10);
     let closeBtn = document.getElementById(`closeFavBtn${idNum}`);
     closeBtn.style.opacity = "1";
   });
   newFavTab.addEventListener("mouseleave", (e) => {
-    console.log("favTab mouseLeave");
+    // console.log("favTab mouseLeave");
     let idNum = parseInt(e.target.id.replace(/\D/g, ""), 10);
     let closeBtn = document.getElementById(`closeFavBtn${idNum}`);
     closeBtn.style.opacity = "0";
@@ -55,10 +55,10 @@ export const addTofavourateSidebar = (idNum) => {
 };
 
 export const updateFavourate = (text, selectedNote) => {
-  console.log("text passed to updateFav", text);
+  // console.log("text passed to updateFav", text);
 
   let relatedSideTab = document.getElementById(selectedNote.favTabId);
-  console.log("relatedSidetab", relatedSideTab);
+  // console.log("relatedSidetab", relatedSideTab);
   relatedSideTab.textContent = "";
   relatedSideTab.appendChild(text);
 
@@ -67,12 +67,12 @@ export const updateFavourate = (text, selectedNote) => {
 
 export const sendValueToUpdateFavourates = (e) => {
   if (isOnFavourates(SelectedNote.noteId, FavNotes)) {
-    console.log(`${SelectedNote.noteId}  is on Favourates`);
-    let text = document.createTextNode(e.target.value);
+    // console.log(`${SelectedNote.noteId}  is on Favourates`);
+    let text = document.createTextNode(e.target.textContent);
     updateFavourate(text, SelectedNote);
     return;
   }
-  console.log(`${SelectedNote.noteId}  is not in fav`);
+  // console.log(`${SelectedNote.noteId}  is not in fav`);
 };
 
 export const isOnFavourates = (noteId, FavNotes) => {

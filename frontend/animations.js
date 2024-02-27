@@ -83,3 +83,22 @@ export const animateDeleted = (idNum) => {
   //   console.log(noteId);
   let note = document.getElementById(`note${idNum}`);
 };
+
+export const animateAlreadyFav = (idNum) => {
+  let favTab = document.getElementById(`favTab${idNum}`);
+  favTab.animate(
+    [
+      { border: "2px solid blue" },
+      { border: "" },
+      { border: "2px solid blue" },
+      { border: "" },
+      { border: "2px solid blue" },
+      { border: "" },
+    ],
+    {
+      fill: "forwards",
+      duration: 1000,
+      easing: "ease-in",
+    }
+  );
+};

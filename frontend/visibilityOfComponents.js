@@ -2,12 +2,14 @@ let dottedGrid = document.querySelector(".dottedGrid");
 let addBtn = document.querySelector(".addBtn");
 let blankPageText = document.querySelector(".blankPageText");
 let notesBorder = document.querySelector(".notesBorder");
+// let mainBody = document.querySelector(".mainBody");
 
-export const visiblityHandler = () => {
+export const addBtnVisiblityHandler = () => {
   setTimeout(() => {
     dottedGrid.style.visibility = "visible";
     addBtn.style.visibility = "hidden";
     blankPageText.style.visibility = "hidden";
+    // mainBody.removeChild(blankPageText);
     makeBackButtonVisible();
 
     addBtn.style.visibility = "hidden";
@@ -20,6 +22,7 @@ export const backVisiblityHandler = () => {
     notesBorder.style.visibility = "visible";
     addBtn.style.visibility = "visible";
   }, 0);
+
   makeBackButtonInvisible();
   makeNotesVisible();
 };
@@ -79,4 +82,9 @@ export const makeBackButtonVisible = () => {
       fill: "forwards",
     }
   );
+};
+
+export const addBlankPageText = () => {
+  let blankPageText = document.getElementById("blankPageText");
+  blankPageText.style.visibility = "visible";
 };
